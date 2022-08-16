@@ -1,5 +1,4 @@
 import { FontGeneratorOptions } from '../types/generator';
-import { getHash } from './hash';
 import { FontAssetType } from '../types/misc';
 
 interface RenderSrcOptions {
@@ -24,11 +23,9 @@ export const renderSrcAttribute = (
 ) =>
   fontTypes
     .map(fontType => {
-      const { formatValue, getSuffix } = renderSrcOptions[fontType];
-      const hash = getHash(font.toString('utf8'));
-      const suffix = getSuffix ? getSuffix(name) : '';
+      const { formatValue } = renderSrcOptions[fontType];
       return `url("${
         fontsUrl || '.'
-      }/${name}.${fontType}?${hash}${suffix}") format("${formatValue}")`;
+      }/${name}.${fontType}") format("${formatValue}")`;
     })
     .join(',\n');
